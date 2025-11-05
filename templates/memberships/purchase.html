@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Purchase Membership{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Purchase {{ plan.group.name }} &middot; {{ plan.name }}</h1>
+    <p>{{ plan.amount }} {{ plan.currency.code }} / {{ plan.get_interval_display }}</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Confirm Purchase</button>
+    </form>
+  </section>
+{% endblock %}

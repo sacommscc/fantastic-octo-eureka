@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Notices{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Manage Notices</h1>
+    <p><a class="button" href="{% url 'content:notice_create' %}">Create Notice</a></p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Active</th>
+          <th>Start</th>
+          <th>End</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for notice in object_list %}
+          <tr>
+            <td>{{ notice.title }}</td>
+            <td>{{ notice.is_active }}</td>
+            <td>{{ notice.start_at }}</td>
+            <td>{{ notice.end_at|default:'-' }}</td>
+            <td><a href="{% url 'content:notice_edit' notice.pk %}">Edit</a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No notices.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

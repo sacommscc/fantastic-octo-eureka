@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Notification Preferences{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Notification Preferences</h1>
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-row">
+          <label>{{ field.label_tag }}</label>
+          {{ field }}
+          {% if field.help_text %}<p class="help">{{ field.help_text }}</p>{% endif %}
+        </div>
+      {% endfor %}
+      <button type="submit">Save Preferences</button>
+    </form>
+    <p class="panel__footer"><a href="{% url 'notifications:logs' %}">View delivery logs</a></p>
+  </section>
+{% endblock %}

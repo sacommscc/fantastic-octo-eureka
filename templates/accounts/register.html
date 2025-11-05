@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Create Account{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Create Account</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Register</button>
+    </form>
+    <p class="panel__footer">Already registered? <a href="{% url 'accounts:login' %}">Sign in</a>.</p>
+  </section>
+{% endblock %}

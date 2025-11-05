@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Profile Settings</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save</button>
+    </form>
+    <p class="panel__footer"><a href="{% url 'accounts:sessions' %}">Manage active sessions</a></p>
+  </section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Sovereign Access Platform{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/app.css' %}" />
+    {% block extra_head %}{% endblock %}
+  </head>
+  <body class="layout">
+    <header class="layout__header">
+      <div class="layout__branding">Sovereign Access</div>
+      <nav class="layout__nav">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'wallets:list' %}">Wallets</a>
+        <a href="{% url 'memberships:catalog' %}">Memberships</a>
+        <a href="{% url 'notifications:preferences' %}">Notifications</a>
+        <a href="{% url 'support:tickets' %}">Support</a>
+        <a href="{% url 'content:news' %}">News</a>
+      </nav>
+      <div class="layout__user">
+        {% if user.is_authenticated %}
+          <span>{{ user.username }}</span>
+          <a href="{% url 'accounts:logout' %}">Logout</a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}">Login</a>
+        {% endif %}
+      </div>
+    </header>
+
+    <main class="layout__main">
+      {% if messages %}
+        <div class="messages">
+          {% for message in messages %}
+            <div class="message message--{{ message.tags }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="layout__footer">
+      <span>&copy; {% now 'Y' %} Sovereign Access Platform</span>
+    </footer>
+    {% block extra_scripts %}{% endblock %}
+  </body>
+</html>

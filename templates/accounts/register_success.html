@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}You're In{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Account Created</h1>
+    <p>Store your 24-word recovery phrase securely. You'll need it to reset your password.</p>
+    <pre class="mnemonic">{{ mnemonic_phrase }}</pre>
+    <p class="panel__footer">Continue to your <a href="{% url 'dashboard' %}">dashboard</a>.</p>
+  </section>
+{% endblock %}

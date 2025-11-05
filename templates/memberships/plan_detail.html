@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{{ plan.group.name }} - {{ plan.name }}{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>{{ plan.group.name }} &middot; {{ plan.name }}</h1>
+    <p>{{ plan.amount }} {{ plan.currency.code }} / {{ plan.get_interval_display }}</p>
+    <p>Duration: {{ plan.duration_days }} days</p>
+    {% if plan.group.description %}
+      <p>{{ plan.group.description }}</p>
+    {% endif %}
+    <p>
+      <a class="button" href="{% url 'memberships:purchase' plan.pk %}">Purchase</a>
+      {% if user.is_authenticated %}
+        <a class="button" href="{% url 'memberships:upgrade' plan.pk %}">Upgrade</a>
+      {% endif %}
+    </p>
+  </section>
+{% endblock %}

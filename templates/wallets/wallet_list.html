@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Wallet Accounts{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Wallet Accounts</h1>
+    <p>
+      <a class="button" href="{% url 'wallets:create' %}">Create Wallet</a>
+      <a class="button" href="{% url 'wallets:deposit' %}">New Deposit Address</a>
+      <a class="button" href="{% url 'wallets:withdraw' %}">Withdraw</a>
+    </p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Currency</th>
+          <th>Balance</th>
+          <th>Available</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for wallet in object_list %}
+          <tr>
+            <td>{{ wallet.currency.code }}</td>
+            <td>{{ wallet.balance }}</td>
+            <td>{{ wallet.available_balance }}</td>
+            <td>{{ wallet.updated_at }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No wallets yet.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

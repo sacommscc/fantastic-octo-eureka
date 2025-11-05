@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Manage News{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Manage News</h1>
+    <p><a class="button" href="{% url 'content:news_create' %}">Create News Item</a></p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Publish At</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in object_list %}
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.get_status_display }}</td>
+            <td>{{ item.publish_at }}</td>
+            <td><a href="{% url 'content:news_edit' item.pk %}">Edit</a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No news items.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

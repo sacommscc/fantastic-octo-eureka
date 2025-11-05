@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Verify OTP{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Verify One-Time Code</h1>
+    <p>Check your configured channel for the verification code and set a new password.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Reset Password</button>
+    </form>
+  </section>
+{% endblock %}

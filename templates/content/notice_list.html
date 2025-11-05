@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Notices{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Platform Notices</h1>
+    <ul class="list">
+      {% for notice in object_list %}
+        <li>
+          <strong>{{ notice.title }}</strong>
+          <span class="meta">{{ notice.start_at }}{% if notice.end_at %} &ndash; {{ notice.end_at }}{% endif %}</span>
+          <p>{{ notice.body|linebreaksbr }}</p>
+        </li>
+      {% empty %}
+        <li>No notices at this time.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}
