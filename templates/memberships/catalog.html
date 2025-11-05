@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Membership Catalog{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Membership Catalog</h1>
+    <div class="grid">
+      {% for plan in object_list %}
+        <article class="card">
+          <h2>{{ plan.group.name }} - {{ plan.name }}</h2>
+          <p>{{ plan.amount }} {{ plan.currency.code }} / {{ plan.get_interval_display }}</p>
+          <a href="{% url 'memberships:plan_detail' plan.pk %}">View details</a>
+        </article>
+      {% empty %}
+        <p>No membership plans available yet.</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Withdraw Funds{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Withdraw Funds</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Submit Withdrawal</button>
+    </form>
+  </section>
+{% endblock %}

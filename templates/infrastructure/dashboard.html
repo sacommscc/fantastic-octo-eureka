@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Infrastructure Status{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Infrastructure Status</h1>
+    <div class="grid">
+      {% for service in services %}
+        <article class="card">
+          <h2>{{ service.name }}</h2>
+          <p>Status: {{ service.status }}</p>
+          <p>{{ service.message }}</p>
+          <p class="meta">Checked {{ service.last_checked }}</p>
+        </article>
+      {% empty %}
+        <p>No service statuses reported.</p>
+      {% endfor %}
+    </div>
+
+    <h2>Latest Metrics</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Value</th>
+          <th>Captured</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for metric in metrics %}
+          <tr>
+            <td>{{ metric.name }}</td>
+            <td>{{ metric.value }} {{ metric.unit }}</td>
+            <td>{{ metric.captured_at }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">No metrics recorded.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <h2>Backup Logs</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Executed</th>
+          <th>Status</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for backup in backup_logs %}
+          <tr>
+            <td>{{ backup.executed_at }}</td>
+            <td>{{ backup.status }}</td>
+            <td>{{ backup.location }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="3">No backups logged.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="grid">
+      <form method="post" action="{% url 'infrastructure:service_update' %}" class="panel panel--narrow">
+        {% csrf_token %}
+        {{ service_form.as_p }}
+        <button type="submit">Update Service</button>
+      </form>
+      <form method="post" action="{% url 'infrastructure:backup_log' %}" class="panel panel--narrow">
+        {% csrf_token %}
+        {{ backup_form.as_p }}
+        <button type="submit">Log Backup</button>
+      </form>
+    </div>
+  </section>
+{% endblock %}

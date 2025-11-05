@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Sign In</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Login</button>
+    </form>
+    <p class="panel__footer">
+      Need an account? <a href="{% url 'accounts:register' %}">Register here</a>.
+    </p>
+    <p class="panel__footer">
+      Forgot your password? <a href="{% url 'accounts:recovery' %}">Use your recovery phrase</a>.
+    </p>
+  </section>
+{% endblock %}

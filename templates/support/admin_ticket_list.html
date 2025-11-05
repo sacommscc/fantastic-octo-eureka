@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}All Support Tickets{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>All Support Tickets</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Subject</th>
+          <th>User</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Updated</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for ticket in object_list %}
+          <tr>
+            <td><a href="{% url 'support:ticket_detail' ticket.pk %}">#{{ ticket.pk }}</a></td>
+            <td>{{ ticket.subject }}</td>
+            <td>{{ ticket.user.username }}</td>
+            <td>{{ ticket.get_status_display }}</td>
+            <td>{{ ticket.get_priority_display }}</td>
+            <td>{{ ticket.updated_at }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6">No tickets found.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

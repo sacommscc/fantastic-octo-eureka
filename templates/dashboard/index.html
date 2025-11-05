@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Control Center{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Welcome back, {{ user.username }}.</h1>
+    <p>Select an area from the navigation to manage your assets, memberships, and communications.</p>
+    <div class="grid">
+      <a class="card" href="{% url 'wallets:list' %}">
+        <h2>Wallets</h2>
+        <p>Manage balances, deposit addresses, and withdrawals.</p>
+      </a>
+      <a class="card" href="{% url 'memberships:catalog' %}">
+        <h2>Memberships</h2>
+        <p>Purchase or upgrade subscriptions for deeper access.</p>
+      </a>
+      <a class="card" href="{% url 'notifications:preferences' %}">
+        <h2>Notifications</h2>
+        <p>Configure Telegram and Jabber delivery preferences.</p>
+      </a>
+      <a class="card" href="{% url 'support:tickets' %}">
+        <h2>Support</h2>
+        <p>Open tickets or review communication history.</p>
+      </a>
+      <a class="card" href="{% url 'content:news' %}">
+        <h2>Updates</h2>
+        <p>Stay informed with the latest platform news and notices.</p>
+      </a>
+      {% if user.is_staff %}
+        <a class="card" href="{% url 'adminpanel:dashboard' %}">
+          <h2>Admin Console</h2>
+          <p>Configure memberships, nodes, and broadcast updates.</p>
+        </a>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

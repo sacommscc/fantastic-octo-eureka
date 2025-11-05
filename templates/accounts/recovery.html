@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Account Recovery{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Account Recovery</h1>
+    <p>Provide your username and 24-word mnemonic to start the recovery process.</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Continue</button>
+    </form>
+  </section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Admin Dashboard</h1>
+    <div class="grid">
+      <article class="card">
+        <h2>Memberships</h2>
+        <p>Total users: {{ membership_summary.total_users }}</p>
+        <p>Active memberships: {{ membership_summary.active_memberships }}</p>
+        <p>New last 30 days: {{ membership_summary.new_memberships }}</p>
+        <p>Revenue last 30 days: {{ membership_summary.revenue_last_30_days }}</p>
+        <a href="{% url 'adminpanel:groups' %}">Manage groups</a>
+      </article>
+      <article class="card">
+        <h2>Wallets</h2>
+        <p>Credits last 30 days: {{ wallet_summary.credits }}</p>
+        <p>Debits last 30 days: {{ wallet_summary.debits }}</p>
+        <a href="{% url 'adminpanel:currencies' %}">Manage currencies</a>
+      </article>
+      <article class="card">
+        <h2>Support</h2>
+        <ul>
+          {% for stat in support_summary %}
+            <li>{{ stat.status }}: {{ stat.count }}</li>
+          {% endfor %}
+        </ul>
+        <a href="{% url 'support:admin_tickets' %}">Support queue</a>
+      </article>
+    </div>
+
+    <h2>Node Configurations</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Currency</th>
+          <th>RPC URL</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for node in node_configs %}
+          <tr>
+            <td>{{ node.currency.code }}</td>
+            <td>{{ node.rpc_url }}</td>
+            <td>{{ node.is_active }}</td>
+            <td><a href="{% url 'adminpanel:node_edit' node.pk %}">Edit</a></td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="4">No node configurations.</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

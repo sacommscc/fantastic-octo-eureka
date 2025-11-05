@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics{% endblock %}
+
+{% block content %}
+  <section class="panel">
+    <h1>Analytics Dashboard</h1>
+    <div class="grid">
+      <article class="card">
+        <h2>Membership</h2>
+        <p>Total users: {{ membership_summary.total_users }}</p>
+        <p>Active memberships: {{ membership_summary.active_memberships }}</p>
+        <p>New in 30 days: {{ membership_summary.new_memberships }}</p>
+        <p>Revenue 30 days: {{ membership_summary.revenue_last_30_days }}</p>
+      </article>
+      <article class="card">
+        <h2>Wallets</h2>
+        <p>Credits (30d): {{ wallet_summary.credits }}</p>
+        <p>Debits (30d): {{ wallet_summary.debits }}</p>
+      </article>
+      <article class="card">
+        <h2>Support</h2>
+        <ul>
+          {% for stat in support_summary %}
+            <li>{{ stat.status }}: {{ stat.count }}</li>
+          {% endfor %}
+        </ul>
+      </article>
+    </div>
+  </section>
+{% endblock %}

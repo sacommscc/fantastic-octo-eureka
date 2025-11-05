@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Upgrade Membership{% endblock %}
+
+{% block content %}
+  <section class="panel panel--narrow">
+    <h1>Upgrade to {{ target_plan.group.name }} &middot; {{ target_plan.name }}</h1>
+    <p>Additional cost: {{ additional_cost }} {{ target_plan.currency.code }}</p>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Upgrade</button>
+    </form>
+  </section>
+{% endblock %}
